@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Ejercicios de React con `useEffect`
 
-## Getting Started
+## Ejercicio 1: Actualización en Tiempo Real de Datos de la Misión
 
-First, run the development server:
+**Objetivo:**  
+Crear un componente que actualice datos cada cierto intervalo.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Instrucciones:
+- Utilizar `useEffect` junto con `setInterval` para actualizar el estado cada 5 segundos.
+- Mostrar datos como temperatura, presión o cualquier otro dato relevante.
+- Asegurarse de limpiar el intervalo al desmontar el componente.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Ejercicio 2: Limpieza de Subscripciones con `useEffect`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Objetivo:**  
+Practicar la limpieza de efectos para evitar *memory leaks*, simulando una subscripción a un servicio de mensajes.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Instrucciones:
+1. Crear un endpoint de una API que devuelva un mensaje de validación `"ok"`.
+2. Utilizar `useEffect` para establecer la subscripción al montar.
+3. Cada 3 segundos se debe validar que el mensaje sea el mismo.
+4. Retornar una función de limpieza para cancelar la subscripción al desmontar.
+5. Crear un botón para cancelar la subscripción manualmente.
+6. Crear un botón para reiniciar la subscripción manualmente.
