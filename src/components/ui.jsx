@@ -2,6 +2,7 @@
 
 import {
   Typography,
+  Button,
   Card,
   CardHeader,
   CardBody,
@@ -14,6 +15,7 @@ import {
 } from "@material-tailwind/react";
 
 export {
+  Button,
   Typography,
   Card,
   CardHeader,

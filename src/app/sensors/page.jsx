@@ -1,15 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Typography, Card, CardHeader, CardBody } from "@/components/ui";
+import { Typography, Card, CardHeader, CardBody, Button } from "@/components/ui";
 import TableHeadCell from "@/components/Table/TableHeadCell";
 import TableCell from "@/components/Table/TableCell";
 
 export default function SensorsPage() {
   const [sensors, setSensors] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [subscriptionActive, setSubscriptionActive] = useState(true);
+  const [validationMessage, setValidationMessage] = useState("");
 
   useEffect(() => {
+    if (!subscriptionActive) return;
     const fetchSensorData = async () => {
       try {
         const response = await fetch("/api/sensors");
@@ -21,9 +24,28 @@ export default function SensorsPage() {
         setLoading(false);
       }
     };
-
+    const validateMessage = async () => {
+      try {
+        const response = await fetch("/api/validate");
+        const data = await response.json();
+        setValidationMessage(data.message);
+      } catch (error) {
+        console.error("Error en la validación del mensaje:", error);
+      
+      }
+    };
     fetchSensorData();
-  }, []);
+    validateMessage();
+    const interval = setInterval(() => {
+      if (subscriptionActive) {
+        fetchSensorData();
+        validateMessage();
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+
+  }, [subscriptionActive]);
 
   return (
     <div className="p-4 flex justify-center">
@@ -76,6 +98,10 @@ export default function SensorsPage() {
               </tbody>
             </table>
           )}
+          <div className="mt-4 flex gap-2">
+            <Button onClick={() => setSubscriptionActive(false)} color="red">Cancelar Subscripción</Button>
+            <Button onClick={() => setSubscriptionActive(true)} color="green">Reiniciar Subscripción</Button>
+          </div>
         </CardBody>
       </Card>
     </div>
